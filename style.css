@@ -245,3 +245,108 @@ body {
 
 .home-btn { background: var(--neon-blue); color: #0f2027; box-shadow: 0 0 15px rgba(0, 242, 255, 0.3); }
 .home-btn:hover { background: white; }
+
+/* 1. 그만 풀기 버튼 스타일 (Quiz Header 부분) */
+.btn-quit {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.btn-quit:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* 2. 오답 노트 스타일 */
+.review-area {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.review-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.review-q p {
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 10px 0;
+}
+
+.review-details {
+    font-size: 0.9rem;
+    background: #f8fafc;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.my-answer { color: #ef4444; margin-bottom: 5px; font-weight: 500; }
+.correct-answer { color: #15803d; margin-bottom: 8px; font-weight: 600; }
+.review-expl { 
+    color: #64748b; 
+    font-size: 0.85rem; 
+    border-top: 1px dashed #cbd5e1;
+    padding-top: 5px;
+    margin-top: 5px;
+}
+.label { font-weight: normal; color: #334155; margin-right: 5px; }
+
+/* === 수정된 옵션 2 CSS (Hover 시 흰색 바탕) === */
+
+/* 버튼 사이 간격 */
+.result-actions {
+    gap: 15px;
+}
+
+/* 1. [다시 풀기] 버튼 스타일 */
+.restart-btn {
+    /* 기본: 시원한 바다색 그라데이션 */
+    background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+    color: white;
+    border: none;
+    font-weight: 700;
+    /* 파란색 빛나는 그림자 */
+    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
+    transition: all 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+/* 마우스 올렸을 때: 흰색 배경 + 파란 글씨 */
+.restart-btn:hover {
+    background: #ffffff;
+    color: #0072ff; /* 글씨색을 메인 파란색으로 변경 */
+    transform: translateY(-2px); /* 살짝 위로 떠오름 */
+    /* 흰색에 어울리는 부드러운 그림자 */
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* 2. [홈으로] 버튼 스타일 */
+.home-btn {
+    /* 기본: 어둡고 투명한 배경 */
+    background: rgba(15, 23, 42, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.8); /* 약간 흐린 흰색 글씨 */
+    font-weight: 600;
+    box-shadow: none;
+    transition: all 0.3s ease;
+}
+
+/* 마우스 올렸을 때: 흰색 배경 + 짙은 글씨 */
+.home-btn:hover {
+    background: #ffffff;
+    border-color: #ffffff; /* 테두리도 흰색으로 */
+    color: #0f172a; /* 글씨색을 어두운 남색으로 변경하여 가독성 확보 */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 은은한 그림자 추가 */
+}

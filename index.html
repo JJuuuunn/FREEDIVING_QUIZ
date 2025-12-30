@@ -60,13 +60,18 @@
             </div>
 
             <div id="quiz-screen" class="hidden">
-                <div class="quiz-header mb-4">
+                <div class="quiz-header mb-4 d-flex justify-content-between align-items-center">
                     <button onclick="goHome()" class="btn-back">
                         <i class="fa-solid fa-arrow-left"></i>
                     </button>
+                    
                     <div class="progress-pill">
                         <span id="progress-text">1 / 50</span>
                     </div>
+
+                    <button onclick="finishQuiz()" class="btn-quit">
+                        <i class="fa-solid fa-flag-checkered"></i> 종료
+                    </button>
                 </div>
 
                 <div class="question-card shadow-lg">
@@ -122,7 +127,14 @@
                     <p id="result-comment">이론 마스터 수준입니다.</p>
                 </div>
 
-                <div class="result-actions">
+                <div id="review-container" class="review-area hidden">
+                    <h4 class="text-start mb-3" style="color: white; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;">
+                        <i class="fa-solid fa-book-open me-2"></i>오답 노트
+                    </h4>
+                    <div id="wrong-answers-list"></div>
+                </div>
+
+                <div class="result-actions mt-4">
                     <button onclick="restartQuiz()" class="restart-btn">
                         <i class="fa-solid fa-rotate-right"></i> 다시 풀기
                     </button>
@@ -131,6 +143,7 @@
                     </button>
                 </div>
             </div>
+
         </div>
     </div>
 

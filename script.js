@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Quiz data loaded successfully.");
             // These depend on data, so they go in here
             loadDifficultyConfig();
+            populateLevelGrid();
             populateLevelSelector();
             loadProgress();
             updateUIForProgress();
@@ -115,6 +116,41 @@ document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     attachEventListeners();
 });
+
+function populateLevelGrid() {
+    const gridEl = document.querySelector('.level-grid');
+    if (!gridEl) return;
+
+    // Get keys and sort them numerically based on the prefix. This is robust.
+    const levels = Object.keys(allData).sort((a, b) => {
+        const numA = parseInt(a.split('.')[0], 10);
+        const numB = parseInt(b.split('.')[0], 10);
+        if (!isNaN(numA) && !isNaN(numB)) {
+            return numA - numB;
+        }
+        return a.localeCompare(b); // Fallback
+    });
+    
+    // The user wants the displayed number to be the index in the sorted list.
+    gridEl.innerHTML = levels.map((level, index) => {
+        // level name from JSON key: e.g., "1. AIDA 1" or "FINAL EXAM"
+        const parts = level.split('. ');
+        // If there's a prefix, use the part after it for the title. Otherwise, use the full level name.
+        const levelTitle = parts.length > 1 ? parts.slice(1).join('. ') : level;
+        // The icon number is the 1-based index of the sorted list.
+        const levelNum = index + 1; 
+
+        return `
+            <button onclick="startQuiz('${level}')" class="level-card" data-level="${level}">
+                <div class="level-icon">${levelNum}</div>
+                <div class="level-info">
+                    <h3>${levelTitle}</h3>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </button>
+        `;
+    }).join('');
+}
 
 function attachEventListeners() {
     // Theme Toggle
@@ -219,11 +255,14 @@ function renderQuestion() {
     document.getElementById('next-btn').classList.remove('hidden');
 
     q.options.forEach((optText, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.innerText = optText;
-        btn.onclick = () => checkAnswer(btn, idx + 1, q.a, q.expl);
-        optsContainer.appendChild(btn);
+        // Only create a button if the option text is not empty or just whitespace
+        if (optText.trim() !== '') {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = optText;
+            btn.onclick = () => checkAnswer(btn, idx + 1, q.a, q.expl);
+            optsContainer.appendChild(btn);
+        }
     });
 }
 
@@ -515,8 +554,18 @@ function renderLeaderboard(level) {
 
 function populateLevelSelector() {
     const selectEl = document.getElementById('leaderboard-level-select');
-    if (Object.keys(allData).length > 0) {
-        selectEl.innerHTML = Object.keys(allData).map(level => `<option value="${level}">${level}</option>`).join('');
+    // Sort levels numerically based on prefix before populating
+    const levels = Object.keys(allData).sort((a, b) => {
+        const numA = parseInt(a.split('.')[0], 10);
+        const numB = parseInt(b.split('.')[0], 10);
+        if (!isNaN(numA) && !isNaN(numB)) {
+            return numA - numB;
+        }
+        return a.localeCompare(b);
+    });
+
+    if (levels.length > 0) {
+        selectEl.innerHTML = levels.map(level => `<option value="${level}">${level}</option>`).join('');
     }
 }
 
